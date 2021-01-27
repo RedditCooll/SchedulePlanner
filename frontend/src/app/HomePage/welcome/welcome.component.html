@@ -1,0 +1,46 @@
+<div style="width:1350px">
+  <nz-row>
+    <nz-col [nzSpan]="24">
+      <nz-carousel nzEffect="scrollx" nzAutoPlay="true">
+        <div nz-carousel-content *ngFor="let item of arrayOfImgUrls">
+          <img [src]="item" style =""/>
+        </div>
+      </nz-carousel>
+      <!-- <nz-carousel nzEffect="scrollx">
+        <div nz-carousel-content *ngFor="let index of array">
+          <h3>{{ index }}</h3>
+        </div>
+      </nz-carousel> -->
+    </nz-col>
+  </nz-row>
+
+  <nz-row style="padding-top: 20px;">
+    <nz-col [nzSpan]="18">
+      <h1 nz-typography>Introduction</h1>
+      <p nz-typography>
+        In the process of internal desktop applications development, many different design specs and implementations would be involved,
+        which might cause designers and developers difficulties and duplication and reduce the efficiency of development.
+      </p>
+      <p nz-typography>
+        After massive project practice and summaries, Ant Design, a design language for backgroundapplications, is refined by Ant UED Team,
+        which aims to
+        <span nz-typography
+          ><strong
+            >uniform the user interface specs for internal background projects, lower the unnecessary cost of design differences and
+            implementation and liberate the resources ofdesign and front-end development</strong
+          ></span
+        >.
+      </p>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col [nzSpan]="4">
+      <nz-statistic [nzValue]="1128" [nzTitle]="'Feedback'" [nzPrefix]="prefixTpl"></nz-statistic>
+      <ng-template #prefixTpl><i nz-icon nzType="like"></i></ng-template>
+    </nz-col>
+    <nz-col [nzSpan]="4">
+      <nz-statistic [nzValue]="93" [nzTitle]="'Unmerged'" [nzSuffix]="'/ 100'"></nz-statistic>
+    </nz-col>
+  </nz-row>
+</div>
