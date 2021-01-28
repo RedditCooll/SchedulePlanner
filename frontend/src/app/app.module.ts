@@ -6,11 +6,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AppRoutingModule } from './app-routing.module';
+
 import { SharedModule } from './Common/shared.module';
 import { HotTableModule } from '@handsontable/angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { SpreadsheetComponent } from './Common/spreadsheet/spreadsheet.component';
+import { TextEditorComponent } from './Common/textEditor/textEditor.component';
+import { ChartsComponent } from './Common/charts/charts.component';
 import { LoginComponent } from './LoginPage/login/login.component';
 import { LogoutComponent } from './LoginPage/logout/logout.component';
 import { RegisterComponent } from './LoginPage/register/register.component';
@@ -35,11 +40,15 @@ registerLocaleData(zh);
     NzIconModule,
     SharedModule,
     IconsProviderModule,
-    HotTableModule.forRoot()
+    HotTableModule.forRoot(),
+    CKEditorModule,
+    NgxChartsModule,
   ],
   declarations: [
     AppComponent,
     SpreadsheetComponent,
+    TextEditorComponent,
+    ChartsComponent,
     LoginComponent,
     LogoutComponent,
     RegisterComponent
