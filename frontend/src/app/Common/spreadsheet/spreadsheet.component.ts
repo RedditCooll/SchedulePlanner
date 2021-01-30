@@ -293,7 +293,8 @@ export class SpreadsheetComponent implements OnInit {
       manualColumnMove: true,
       contextMenu: true,
       filters: true,
-      dropdownMenu: true
+      dropdownMenu: true,
+      licenseKey: 'non-commercial-and-evaluation'
     }
   }
 
