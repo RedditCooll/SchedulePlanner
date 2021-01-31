@@ -14,37 +14,54 @@
               <a routerLink="/welcome">Welcome</a>
             </li>
             <li nz-menu-item>
-              <i nz-icon nzType="fire"></i>
-              <a routerLink="/stuff">Stuff</a>
-            </li>
-            <li nz-menu-item>
               <i nz-icon nzType="unordered-list"></i>
-              <a routerLink="/schedule">Schedule</a>
+              <a routerLink="/schedule/plan">Schedule Plan</a>
             </li>
             <li nz-menu-item>
-              <i nz-icon nzType="coffee"></i>
-              <a routerLink="/leisure">Leisure</a>
+              <i nz-icon nzType="ordered-list" nzTheme="outline"></i>
+              <a routerLink="/schedule/list">Schedule List</a>
             </li>
-            <li nz-menu-item>
-              <i nz-icon nzType="file-excel"></i>
-              <a routerLink="/spreadsheet">Spreadsheet</a>
-            </li>
-            <li nz-menu-item>
-              <i nz-icon nzType="form"></i>
-              <a routerLink="/texteditor">Text Editor</a>
-            </li>
-            <li nz-menu-item>
-              <i nz-icon nzType="area-chart"></i>
-              <a routerLink="/charts">Charts</a>
-            </li>
+
             <li nz-submenu nzTitle="Setting" nzIcon="setting">
               <ul>
+
                 <li nz-menu-group nzTitle="Account">
                   <ul>
-                    <li nz-menu-item><a routerLink="/login">Login</a></li>
-                    <li nz-menu-item><a routerLink="/register">Register</a></li>
+                    <li nz-menu-item><i nz-icon nzType="login" nzTheme="outline"></i><a routerLink="/login">Login</a></li>
+                    <li nz-menu-item><i nz-icon nzType="user-add" nzTheme="outline"></i><a routerLink="/register">Register</a></li>
                   </ul>
                 </li>
+
+                <li nz-menu-group nzTitle="Testing">
+                  <ul>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="file-excel"></i>
+                      <a routerLink="/spreadsheet">Spreadsheet</a>
+                    </li>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="form"></i>
+                      <a routerLink="/texteditor">Text Editor</a>
+                    </li>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="area-chart"></i>
+                      <a routerLink="/charts">Charts</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li nz-menu-group nzTitle="Template">
+                  <ul>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="fire"></i>
+                      <a routerLink="/stuff">Stuff</a>
+                    </li>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="coffee"></i>
+                      <a routerLink="/leisure">Leisure</a>
+                    </li>
+                  </ul>
+                </li>
+
                 <li nz-menu-group nzTitle="Setting">
                   <ul>
                     <li nz-menu-item>Option 3</li>
@@ -57,6 +74,7 @@
                     </li>
                   </ul>
                 </li>
+
               </ul>
             </li>
             <li nz-menu-item>

@@ -1,6 +1,7 @@
 package com.redditcooll.schedulePlanner.to
 
-import java.util.*
+import java.sql.Date
+
 
 class ScheduleTableTo {
     var period: String? = null
@@ -25,8 +26,11 @@ class ScheduleTo {
     var rate: Rate? = null
 }
 
+// TODO: add User JPA
+// TODO: add User profile pic mapping
+
 class User {
-    var id: Int? = null
+    var id: String? = null
     var name: String? = null
 }
 

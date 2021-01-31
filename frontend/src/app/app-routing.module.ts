@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'welcome', loadChildren: () => import('./HomePage/welcome/welcome.module').then(m => m.WelcomeModule) },
   { path: 'stuff', loadChildren: () => import('./HomePage/stuff/stuff.module').then(m => m.StuffModule) },
   { path: 'leisure', loadChildren: () => import('./HomePage/leisure/leisure.module').then(m => m.LeisureModule) },
-  { path: 'schedule', loadChildren: () => import('./Schedule/schedule/schedule.module').then(m => m.ScheduleModule) },
+  { path: 'schedule', loadChildren: () => import('./Schedule/schedule.module').then(m => m.ScheduleModule) },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'logout', component: LogoutComponent},

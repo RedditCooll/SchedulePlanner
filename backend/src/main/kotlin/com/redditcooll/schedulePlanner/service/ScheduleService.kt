@@ -4,8 +4,11 @@ import com.redditcooll.schedulePlanner.model.ScheduleEntity
 import com.redditcooll.schedulePlanner.repo.ScheduleRepository
 import com.redditcooll.schedulePlanner.to.Rate
 import com.redditcooll.schedulePlanner.to.ScheduleTo
+import com.redditcooll.schedulePlanner.to.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.io.IOException
+import java.sql.Date
 
 @Service
 class ScheduleService {
@@ -13,12 +16,34 @@ class ScheduleService {
     @Autowired
     private lateinit var scheduleRepository: ScheduleRepository
 
-    // TODO: save Schedule into DB
-    fun saveSchedule(scheduleList : List<ScheduleTo>){
-
+    fun createSchedules(scheduleList : MutableList<ScheduleTo>): Boolean{
+        return try {
+            var scheduleEntityList = mutableListOf<ScheduleEntity>()
+            scheduleList.forEach{
+                var scheduleEntity = ScheduleEntity()
+                scheduleEntity.scheduleId = it.id
+                scheduleEntity.date = it.date
+                scheduleEntity.userId = it.user!!.id
+                scheduleEntity.priority = it.priority
+                scheduleEntity.status = it.status
+                scheduleEntity.classification = it.classification
+                scheduleEntity.content = it.content
+                scheduleEntity.address = it.address
+                scheduleEntity.veryGood = 0
+                scheduleEntity.good = 0
+                scheduleEntity.like = 0
+                scheduleEntityList.add(scheduleEntity)
+                //scheduleRepository.save(scheduleEntity)
+            }
+            scheduleRepository.saveAll(scheduleEntityList)
+            true
+        }
+        catch (e: IOException){
+            false
+        }
+        return false
     }
 
-    // TODO: get Schedule from DB
     fun getSchedules(): MutableIterable<ScheduleTo?> {
         var result = scheduleRepository.findAll()
         var scheduleToList = mutableListOf<ScheduleTo>()
@@ -32,6 +57,10 @@ class ScheduleService {
             scheduleTo.status = it.status
             scheduleTo.date = it.date
 
+            var userTo = User()
+            userTo.id = it.userId
+            scheduleTo.user = userTo
+
             var rateTo = Rate()
             rateTo.good = it.good
             rateTo.veryGood = it.veryGood
@@ -40,6 +69,7 @@ class ScheduleService {
 
             scheduleToList.add(scheduleTo)
         }
+        // TODO: bug, check the value of date
         return scheduleToList
     }
 }

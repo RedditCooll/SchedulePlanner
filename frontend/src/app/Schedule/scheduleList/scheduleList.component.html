@@ -1,0 +1,24 @@
+<div>
+    <nz-list nzItemLayout="vertical">
+        <nz-list-item *ngFor="let item of data">
+          <nz-list-item-meta>
+            <nz-list-item-meta-avatar nzSrc = "./../../assets/chimmy.jpeg"> </nz-list-item-meta-avatar>
+            <nz-list-item-meta-title>
+              <a href="{{ item.user.id }}">{{ item.user.id }}</a>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              Classification: {{ item.classification }} | Date: {{ item.date }} | Address: {{ item.address }} | Status: {{ item.status }}
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+          {{ item.content }}
+          <ul nz-list-item-actions>
+            <nz-list-item-action><i nz-icon nzType="star-o" style="margin-right: 8px;"></i>{{ item.rate.veryGood }}</nz-list-item-action>
+            <nz-list-item-action><i nz-icon nzType="meh" style="margin-right: 8px;"></i>{{ item.rate.good }}</nz-list-item-action>
+            <nz-list-item-action><i nz-icon nzType="heart" style="margin-right: 8px;"></i>{{ item.rate.like }}</nz-list-item-action>
+          </ul>
+          <nz-list-item-extra>
+            <img width="272" alt="logo" src="./../../assets/chimmy.jpg" />
+          </nz-list-item-extra>
+        </nz-list-item>
+    </nz-list>
+</div>

@@ -1,6 +1,7 @@
 package com.redditcooll.schedulePlanner.model
 
 
+import org.hibernate.annotations.GenericGenerator
 import java.sql.Date
 import javax.persistence.*
 
@@ -10,37 +11,38 @@ import javax.persistence.*
 class ScheduleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "SCHEDULE_ID")
-    val scheduleId: String? = null
+    var scheduleId: String? = null
 
     @Column(name = "_DATE")
-    val date: Date? = null
+    var date: Date? = null
 
     @Column(name = "USER_ID")
-    val userId: String? = null
+    var userId: String? = null
 
     @Column(name = "PRIORITY")
-    val priority: Int? = null
+    var priority: Int? = null
 
     @Column(name = "STATUS")
-    val status: String? = null
+    var status: String? = null
 
     @Column(name = "CLASSIFICATION")
-    val classification: String? = null
+    var classification: String? = null
 
     @Column(name = "CONTENT")
-    val content: String? = null
+    var content: String? = null
 
     @Column(name = "ADDRESS")
-    val address: String? = null
+    var address: String? = null
 
     @Column(name = "VERY_GOOD")
-    val veryGood: Int? = null
+    var veryGood: Int? = null
 
     @Column(name = "GOOD")
-    val good: Int? = null
+    var good: Int? = null
 
     @Column(name = "_LIKE")
-    val like: Int? = null
+    var like: Int? = null
 }

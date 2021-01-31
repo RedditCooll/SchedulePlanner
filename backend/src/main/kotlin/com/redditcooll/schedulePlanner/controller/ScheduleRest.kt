@@ -1,15 +1,15 @@
 package com.redditcooll.schedulePlanner.controller
 
-import com.redditcooll.schedulePlanner.model.ScheduleEntity
 import com.redditcooll.schedulePlanner.service.ScheduleService
 import com.redditcooll.schedulePlanner.to.ScheduleTo
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
+
 @RestController
+@CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+@RequestMapping("/api")
 class ScheduleRest {
 
     @Autowired
@@ -19,10 +19,12 @@ class ScheduleRest {
 
     // TODO: receive PlanTo, export it to excel
 
-    // TODO: save Schedule
+    @RequestMapping(value= ["/create/schedules"], method = [RequestMethod.POST], produces = ["application/json"])
+    fun createBusinessContent(@RequestBody scheduleToList: MutableList<ScheduleTo>, request: HttpServletRequest): Boolean {
+        return scheduleService.createSchedules(scheduleToList)
+    }
 
-    // TODO: get all Schedule List
-    @RequestMapping(value= ["/schedules"], method = [RequestMethod.GET], produces = ["application/json"])
+    @RequestMapping(value= ["/get/schedules"], method = [RequestMethod.GET], produces = ["application/json"])
     fun getBusinessContent(request: HttpServletRequest): MutableIterable<ScheduleTo?> {
         return scheduleService.getSchedules()
     }

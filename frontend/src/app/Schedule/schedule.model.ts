@@ -10,15 +10,15 @@ export class ScheduleTableTo {
 }
 
 export class ScheduleTo {
-    id: string;
-    date: Date;
-    user: User;
-    priority: number;
-    status: string;
-    classification: string;
-    content: string;
-    address: string;
-    rate: Rate;
+    id?: string;
+    date?: Date;
+    user?: User;
+    priority?: number;
+    status?: string;
+    classification?: string;
+    content?: string;
+    address?: string;
+    rate?: Rate;
 }
 
 export class User {
