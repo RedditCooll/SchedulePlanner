@@ -13,10 +13,13 @@ import java.sql.Date
 @Service
 class ScheduleService {
 
+    var logger: org.slf4j.Logger = org.slf4j.LoggerFactory.getLogger(ScheduleService::class.java)
+
     @Autowired
     private lateinit var scheduleRepository: ScheduleRepository
 
     fun createSchedules(scheduleList : MutableList<ScheduleTo>): Boolean{
+        logger.info("createSchedules count: ${scheduleList.size}")
         return try {
             var scheduleEntityList = mutableListOf<ScheduleEntity>()
             scheduleList.forEach{
@@ -69,7 +72,6 @@ class ScheduleService {
 
             scheduleToList.add(scheduleTo)
         }
-        // TODO: bug, check the value of date
         return scheduleToList
     }
 }

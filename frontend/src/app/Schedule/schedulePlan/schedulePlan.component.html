@@ -1,2 +1,25 @@
-<button nz-button nzType="primary" (click)="createSchedules()" [nzLoading]="isLoading">Create Schedules!</button>
-<hot-table #scheduleSpreadsheet [hotId]="hotId" [settings]="settings"></hot-table>
+<div nz-row nzJustify="start" style="padding-bottom: 10px">
+    <div nz-col nzSpan="5">
+        <button nz-button nzType="primary" (click)="createSchedules()" [nzLoading]="isCreatSchedulesBtnLoading"><i nz-icon nzType="check" nzTheme="outline"></i>Create Schedules</button>
+    </div>
+
+    <div nz-col nzSpan="4">
+        <nz-upload
+            nzAction="http://localhost:8080/api/schedules/upload"
+            [nzHeaders]="{ authorization: 'authorization-text' }"
+            (nzChange)="importExcel($event)"
+        >
+            <button nz-button nzType="primary"><i nz-icon nzType="upload"></i>Import Excel</button>
+        </nz-upload>
+    </div>
+
+    <div nz-col nzSpan="4">
+        <button nz-button nzType="primary" (click)="exportExcel()" [nzLoading]="isExportExcelBtnLoading"><i nz-icon nzType="file-excel" nzTheme="outline"></i>Export Excel</button>
+    </div>
+</div>
+
+
+<div nz-row>
+    <hot-table #scheduleSpreadsheet [hotId]="hotId" [settings]="settings"></hot-table>
+</div>
+

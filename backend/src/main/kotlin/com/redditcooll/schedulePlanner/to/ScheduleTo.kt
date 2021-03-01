@@ -1,7 +1,6 @@
 package com.redditcooll.schedulePlanner.to
 
-import java.sql.Date
-
+import java.time.LocalDate
 
 class ScheduleTableTo {
     var period: String? = null
@@ -16,7 +15,7 @@ class ScheduleTableTo {
 
 class ScheduleTo {
     var id: String? = null
-    var date: Date? = null
+    var date: LocalDate? = null
     var user: User? = null
     var priority: Int? = null
     var status: String? = null

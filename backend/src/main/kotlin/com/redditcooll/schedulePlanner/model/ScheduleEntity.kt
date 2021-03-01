@@ -2,7 +2,7 @@ package com.redditcooll.schedulePlanner.model
 
 
 import org.hibernate.annotations.GenericGenerator
-import java.sql.Date
+import java.time.LocalDate
 import javax.persistence.*
 
 
@@ -17,7 +17,7 @@ class ScheduleEntity {
     var scheduleId: String? = null
 
     @Column(name = "_DATE")
-    var date: Date? = null
+    var date: LocalDate? = null
 
     @Column(name = "USER_ID")
     var userId: String? = null

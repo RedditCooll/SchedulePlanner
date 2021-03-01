@@ -24,6 +24,7 @@
     "@handsontable/angular": "^6.0.1",
     "@stomp/stompjs": "^5.4.4",
     "@swimlane/ngx-charts": "^17.0.0",
+    "file-saver": "^2.0.5",
     "handsontable": "^8.2.0",
     "ng-zorro-antd": "^9.3.0",
     "rxjs": "~6.5.5",

@@ -4,6 +4,8 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ScheduleTo } from './schedule.model';
 import { HttpParams } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,25 @@ export class ScheduleService {
     showSchedules(): Observable<any> {
     //   let params = new HttpParams();
     //   params = params.append('user', user);
-      return this.http.get<ScheduleTo[]>(`${this.apiUrl}/get/schedules`);
+      return this.http.get<ScheduleTo[]>(`${this.apiUrl}/get/schedules`)
+        .pipe(
+          catchError(this.error)
+        )
+    }
+
+    // Export data to Excel file
+    exportExcel(data: ScheduleTo[]): Observable<any>{
+      let API_URL = `${this.apiUrl}/schedules/download`;
+      let headers = new HttpHeaders();
+      headers = headers.append('Accept', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
+      return this.http.post(API_URL, data,{
+        headers: headers,
+        observe: 'response',
+        responseType: 'blob'
+      })
+        .pipe(
+          catchError(this.error)
+        )
     }
   
     // // Update

@@ -3,6 +3,9 @@ import { HotTableRegisterer } from '@handsontable/angular';
 import Handsontable from 'handsontable';
 import { Rate, ScheduleTo, User } from '../schedule.model';
 import { ScheduleService } from '../schedule.service';
+import { saveAs } from 'file-saver';
+import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-schedulePlan',
@@ -10,13 +13,15 @@ import { ScheduleService } from '../schedule.service';
 })
 export class SchedulePlanComponent implements OnInit{
 
-  constructor(private scheduleService: ScheduleService){
-
+  constructor(private scheduleService: ScheduleService,
+              private msg: NzMessageService){
   }
 
-  isLoading = false;
+  isCreatSchedulesBtnLoading = false;
+  isImportExcelBtnLoading = false;
+  isExportExcelBtnLoading = false;
   dataObject: any;
-  settings: any;
+  settings: any; // table setting
 
   private hotRegisterer = new HotTableRegisterer();
   hotId = 'hotInstance';
@@ -109,13 +114,64 @@ export class SchedulePlanComponent implements OnInit{
         dropdownMenu: true,
         licenseKey: 'non-commercial-and-evaluation'
     }
-    
-    
   } 
 
   createSchedules(){
-    // get current data
-    // change string to date
+    var scheduleToArray = this.getCurrentSheetData()
+    console.log('send data to backend:',scheduleToArray)
+
+    this.isCreatSchedulesBtnLoading = true;
+    this.scheduleService.createSchedules(scheduleToArray).subscribe( result => {
+        if(result == true){
+          this.isCreatSchedulesBtnLoading = false;
+          console.log('create schedules sucessfully!');
+        }
+        else{
+          this.isCreatSchedulesBtnLoading = false;
+          console.log('create schedules failed!');
+        }
+    } )
+  }
+
+  importExcel(info: NzUploadChangeParam){ 
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      this.msg.success(`${info.file.name} file uploaded successfully`);
+      let file = info ? info.file : null;
+      console.log('importExcel response:', file.response)
+      // put response into table, update
+      // formate date, user
+      var newData = []
+      file.response.forEach(element => {
+        var tmp = element
+        tmp.date = element.date[0] + "/" + element.date[1] + "/" + element.date[2]
+        tmp.user = element.user.id
+        newData.push(tmp)
+      });
+      this.settings.data = newData;
+      this.hotRegisterer.getInstance(this.hotId).updateSettings(this.settings, true)
+    } 
+    else if (info.file.status === 'error') {
+      this.msg.error(`${info.file.name} file upload failed.`);
+    }
+  }
+
+  exportExcel(){
+    var scheduleToArray = this.getCurrentSheetData()
+    console.log('send data to backend:',scheduleToArray)
+    this.isExportExcelBtnLoading = true;
+    this.scheduleService.exportExcel(scheduleToArray).subscribe( response => {
+        this.saveFile(response.body, 'Schedule_Export.xlsx');
+        console.log('exportExcel response:', response);
+        console.log('export excel sucessfully!');
+        this.isExportExcelBtnLoading = false;
+    },
+    error => console.log("error downloading the file"));
+  }
+
+  getCurrentSheetData(): ScheduleTo[]{
     var scheduleToArray: ScheduleTo[] = [];
     this.hotRegisterer.getInstance(this.hotId).getSourceDataArray().forEach( row => {
       var rate: Rate = {
@@ -140,21 +196,11 @@ export class SchedulePlanComponent implements OnInit{
       }
       scheduleToArray.push(scheduleTo);
     } )
-    console.log('send data to backend:',scheduleToArray)
-
-    this.isLoading = true;
-    this.scheduleService.createSchedules(scheduleToArray).subscribe( result => {
-        if(result == true){
-          this.isLoading = false;
-          console.log('create schedules sucessfully!');
-        }
-        else{
-          this.isLoading = false;
-          console.log('create schedules failed!');
-        }
-    } )
+    return scheduleToArray;
   }
 
-
-
+  saveFile(data: any, filename?: string) {
+    const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8'});
+    saveAs(blob, filename);
+  }
 }
