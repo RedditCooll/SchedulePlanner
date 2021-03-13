@@ -37,6 +37,15 @@ export class ScheduleService {
         )
     }
 
+    getScheduleById(scheduleId: string): Observable<any> {
+      let params = new HttpParams();
+      params = params.append('id', scheduleId);
+      return this.http.get<ScheduleTo[]>(`${this.apiUrl}/get/schedule`,{params: params})
+        .pipe(
+          catchError(this.error)
+        )
+    }
+
     // Export data to Excel file
     exportExcel(data: ScheduleTo[]): Observable<any>{
       let API_URL = `${this.apiUrl}/schedules/download`;

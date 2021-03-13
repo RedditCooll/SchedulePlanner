@@ -21,5 +21,7 @@ export class ScheduleListComponent implements OnInit{
       })
     }
 
-
+    passTheEditPageUrl(scheduleTo: ScheduleTo):string{
+      return 'http://localhost:4200/schedule/edit/' + scheduleTo.id;
+    }
 }

@@ -31,8 +31,13 @@ class ScheduleRest {
     }
 
     @RequestMapping(value= ["/get/schedules"], method = [RequestMethod.GET], produces = ["application/json"])
-    fun getBusinessContent(request: HttpServletRequest): MutableIterable<ScheduleTo?> {
+    fun getBusinessContents(request: HttpServletRequest): MutableIterable<ScheduleTo?> {
         return scheduleService.getSchedules()
+    }
+
+    @RequestMapping(value= ["/get/schedule"], method = [RequestMethod.GET], produces = ["application/json"])
+    fun getBusinessContent(@RequestParam id:String, request: HttpServletRequest): ScheduleTo? {
+        return scheduleService.getSchedule(id)
     }
 
     @RequestMapping(value = ["/schedules/upload"], method = [RequestMethod.POST])

@@ -1,0 +1,20 @@
+<nz-descriptions nzTitle="Reminder Info" nzBordered>
+    <nz-descriptions-item nzTitle="ID" >{{schedule.id}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="User">{{schedule.user.id}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Priority">{{schedule.priority}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Date">
+        {{schedule.date}}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Address" [nzSpan]="2">
+        {{schedule.address}}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Content" [nzSpan]="3">
+        {{schedule.content}}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Classification">{{schedule.classification}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status">
+        <nz-badge nzStatus="processing" [nzText]="schedule.status"></nz-badge>
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <br>
+<ckeditor [editor]="Editor" data="Hello, world!" (ready)="onReady($event)"></ckeditor>

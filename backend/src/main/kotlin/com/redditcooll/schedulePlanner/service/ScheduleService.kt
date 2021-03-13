@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.IOException
 import java.sql.Date
+import java.util.*
 
 @Service
 class ScheduleService {
@@ -73,5 +74,30 @@ class ScheduleService {
             scheduleToList.add(scheduleTo)
         }
         return scheduleToList
+    }
+
+    fun getSchedule(Id: String): ScheduleTo? {
+        var result = scheduleRepository.findById(Id)
+        var scheduleTo = ScheduleTo()
+        if(result != null){
+            scheduleTo.id = result.scheduleId
+            scheduleTo.address = result.address
+            scheduleTo.classification = result.classification
+            scheduleTo.content = result.content
+            scheduleTo.priority = result.priority
+            scheduleTo.status = result.status
+            scheduleTo.date = result.date
+
+            var userTo = User()
+            userTo.id = result.userId
+            scheduleTo.user = userTo
+
+            var rateTo = Rate()
+            rateTo.good = result.good
+            rateTo.veryGood = result.veryGood
+            rateTo.like = result.like
+            scheduleTo.rate = rateTo
+        }
+        return scheduleTo
     }
 }

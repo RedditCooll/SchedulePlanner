@@ -15,3 +15,9 @@ class SchedulePlannerApplication
 fun main(args: Array<String>) {
 	runApplication<SchedulePlannerApplication>(*args)
 }
+
+
+// TODO: add table columns for content, pic
+// col rename 'content' to 'subject'
+// add content col
+
