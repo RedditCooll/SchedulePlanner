@@ -74,7 +74,7 @@ class UserServiceImpl : UserService {
     override fun processUserRegistration(registrationId: String?, attributes: MutableMap<String?, Any?>?, idToken: OidcIdToken?, userInfo: OidcUserInfo?): LocalUser? {
 
         // FIXME: when the mail is hidden on gitHub
-        //attributes?.put("email", "Test@mail.com")
+        //attributes?.put("email", "your-email")
 
         val oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId!!, attributes)
         if (StringUtils.isEmpty(oAuth2UserInfo.name)) {
