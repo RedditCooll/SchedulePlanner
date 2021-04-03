@@ -1,4 +1,4 @@
-package com.redditcooll.schedulePlanner.to
+package com.redditcooll.schedulePlanner.dto
 
 import java.time.LocalDate
 

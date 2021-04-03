@@ -1,8 +1,8 @@
 package com.redditcooll.schedulePlanner.controller
 
-import com.redditcooll.schedulePlanner.service.ExcelService
 import com.redditcooll.schedulePlanner.service.ScheduleService
-import com.redditcooll.schedulePlanner.to.ScheduleTo
+import com.redditcooll.schedulePlanner.service.ExcelService
+import com.redditcooll.schedulePlanner.dto.ScheduleTo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.InputStreamResource
 import org.springframework.http.HttpHeaders

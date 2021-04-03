@@ -2,14 +2,12 @@ package com.redditcooll.schedulePlanner.service
 
 import com.redditcooll.schedulePlanner.model.ScheduleEntity
 import com.redditcooll.schedulePlanner.repo.ScheduleRepository
-import com.redditcooll.schedulePlanner.to.Rate
-import com.redditcooll.schedulePlanner.to.ScheduleTo
-import com.redditcooll.schedulePlanner.to.User
+import com.redditcooll.schedulePlanner.dto.Rate
+import com.redditcooll.schedulePlanner.dto.ScheduleTo
+import com.redditcooll.schedulePlanner.dto.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.IOException
-import java.sql.Date
-import java.util.*
 
 @Service
 class ScheduleService {

@@ -14,6 +14,11 @@ SchedulePlanner uses a number of open source projects to work properly:
 ##### backend:
 * [Springboot] - Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
 
+##### Work in Process
+Trying to add  OAuth2 social login, [OAuth2.0 implement refer] 
+add `clientId & clientSecret` in application.properties
+`ng serve --port 8081`
+
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
    [Angular]: <https://angular.io/>
@@ -22,4 +27,5 @@ SchedulePlanner uses a number of open source projects to work properly:
    [Springboot]: <https://spring.io/projects/spring-boot>
    [CKEditor5]: <https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html>
    [ngx-charts]: <https://swimlane.gitbook.io/ngx-charts/>
+   [OAuth2.0 implement refer]: <https://www.javachinna.com/spring-boot-angular-10-user-registration-oauth2-social-login-part-1/>
 

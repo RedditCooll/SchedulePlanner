@@ -1,8 +1,8 @@
 package com.redditcooll.schedulePlanner.service
 
-import com.redditcooll.schedulePlanner.to.Rate
-import com.redditcooll.schedulePlanner.to.ScheduleTo
-import com.redditcooll.schedulePlanner.to.User
+import com.redditcooll.schedulePlanner.dto.Rate
+import com.redditcooll.schedulePlanner.dto.ScheduleTo
+import com.redditcooll.schedulePlanner.dto.User
 import com.redditcooll.schedulePlanner.util.PoiUtilService
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
