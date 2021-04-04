@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 @RequestMapping("/api")
-class ScheduleRest {
+class ScheduleController {
 
     @Autowired
     private lateinit var scheduleService: ScheduleService

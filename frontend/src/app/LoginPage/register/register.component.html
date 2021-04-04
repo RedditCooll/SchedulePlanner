@@ -1,4 +1,4 @@
-<!-- <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+<form *ngIf="!isSuccessful" nz-form [formGroup]="validateForm" (ngSubmit)="validateForm.valid && onSubmit()">
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
@@ -12,9 +12,9 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="matchingPassword" nzRequired>Confirm Password</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
-        <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+        <input nz-input type="password" formControlName="matchingPassword" id="matchingPassword" />
         <ng-template #errorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">
             Please confirm your password!
@@ -26,59 +26,17 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname" nzRequired>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="displayName" nzRequired>
         <span>
-          Nickname
+          Display Name
           <i nz-icon nz-tooltip nzTooltipTitle="What do you want other to call you" nzType="question-circle" nzTheme="outline"></i>
         </span>
       </nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your nickname!">
-        <input nz-input id="nickname" formControlName="nickname" />
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your displayName!">
+        <input nz-input id="displayName" formControlName="displayName" />
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-        [nzValidateStatus]="validateForm.controls['phoneNumber']"
-        nzErrorTip="Please input your phone number!"
-      >
-        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
-          <ng-template #addOnBeforeTemplate>
-            <nz-select formControlName="phoneNumberPrefix" class="phone-select">
-              <nz-option nzLabel="+86" nzValue="+86"></nz-option>
-              <nz-option nzLabel="+87" nzValue="+87"></nz-option>
-            </nz-select>
-          </ng-template>
-          <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="website" nzRequired>Website</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input website!">
-        <input nz-input id="website" formControlName="website" placeholder="website" />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="captcha" nzRequired>Captcha</nz-form-label>
-      <nz-form-control
-        [nzSm]="14"
-        [nzXs]="24"
-        nzErrorTip="Please input the captcha you got!"
-        nzExtra="We must make sure that your are a human."
-      >
-        <div nz-row [nzGutter]="8">
-          <div nz-col [nzSpan]="12">
-            <input nz-input formControlName="captcha" id="captcha" />
-          </div>
-          <div nz-col [nzSpan]="12">
-            <button nz-button (click)="getCaptcha($event)">Get captcha</button>
-          </div>
-        </div>
-      </nz-form-control>
-    </nz-form-item>
+    
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
         <label nz-checkbox formControlName="agree">
@@ -91,11 +49,20 @@
         <button nz-button nzType="primary">Register</button>
       </nz-form-control>
     </nz-form-item>
-  </form> -->
+  </form>
 
-<div class="col-md-12">
+  <div *ngIf="isSignUpFailed">
+    Signup failed!<br />{{ errorMessage }}
+  </div>
+
+  <div *ngIf="isSuccessful">Your registration is successful!</div>
+
+
+<!-- <div class="col-md-12">
 	<div class="card card-container">
 		<img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+
+
 		<form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
 			<div class="form-group">
 				<label for="displayName">Display Name</label> <input type="text" class="form-control" name="displayName" [(ngModel)]="form.displayName" required minlength="3"
@@ -138,4 +105,4 @@
 		</form>
 		<div class="alert alert-success" *ngIf="isSuccessful">Your registration is successful!</div>
 	</div>
-</div>
+</div> -->

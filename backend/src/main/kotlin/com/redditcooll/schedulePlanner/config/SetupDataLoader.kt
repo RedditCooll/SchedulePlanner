@@ -35,7 +35,7 @@ class SetupDataLoader : ApplicationListener<ContextRefreshedEvent?> {
         val userRole = createRoleIfNotFound(Role.ROLE_USER)
         val adminRole = createRoleIfNotFound(Role.ROLE_ADMIN)
         val modRole = createRoleIfNotFound(Role.ROLE_MODERATOR)
-        createUserIfNotFound("admin@javachinna.com", java.util.Set.of(userRole, adminRole, modRole))
+        createUserIfNotFound("admin@redditcooll.com", mutableSetOf(userRole, adminRole, modRole))
         alreadySetup = true
     }
 

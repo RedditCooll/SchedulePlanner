@@ -1,94 +1,77 @@
-<!-- <nz-row>
-  <nz-col nzSpan = "7">
-    <img src='./../../assets/bulldogHello.png' style="width:350px"/>
-  </nz-col>
+<nz-row style="padding-bottom: 30px;">
+  <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+</nz-row>
+
+<nz-row>
+  <nz-col nzSpan = "18">
+    <form *ngIf="!isLoggedIn" nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="validateForm.valid && onSubmit()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="username" placeholder="Username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="login-form-margin">
+        <div nz-col [nzSpan]="12">
+          <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <a class="login-form-forgot">Forgot password</a>
+        </div>
+      </div>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+      Or 
+      <p class="social-login text-center">
+        Sign in with:
+        <a href="{{ googleURL }}" class="ml-2">
+          <span nz-tooltip nzTooltipTitle="Login with Google" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="google-circle" nzTheme="fill" style="font-size: 2em;"></i>
+          </span>
+        </a>
+        <a href="{{ facebookURL }}">
+          <span nz-tooltip nzTooltipTitle="Login with Facebook" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="facebook" nzTheme="fill" style="font-size: 2em;"></i>
+          </span>
+        </a>
+        <a href="{{ githubURL }}">
+          <span nz-tooltip nzTooltipTitle="Login with Github" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="github" nzTheme="fill" style="font-size: 2em;"></i>
+          </span>
+        </a>
+        <a href="{{ linkedinURL }}">
+          <span nz-tooltip nzTooltipTitle="Login with Linkedin" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="linkedin" nzTheme="fill" style="font-size: 2em;"></i>
+          </span>
+        </a>
+      </p>
+    </form>
   
-  <nz-col nzSpan = "10">
-    <nz-tabset>
-      <nz-tab nzTitle="Direct login">
-        <nz-col nzSpan = "18" nzOffset="1">
-          <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="handleLogin()">
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="user">
-                  <input type="text" nz-input formControlName="userName" placeholder="Username" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your Password!">
-                <nz-input-group nzPrefixIcon="lock">
-                  <input type="password" nz-input formControlName="password" placeholder="Password" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <div nz-row class="login-form-margin">
-              <div nz-col [nzSpan]="12">
-                <label nz-checkbox formControlName="remember">
-                  <span>Remember me</span>
-                </label>
-              </div>
-              <div nz-col [nzSpan]="12">
-                <a class="login-form-forgot">Forgot password</a>
-              </div>
-            </div>
-            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
-            Or <a> register now! </a>
-          </form>
-        </nz-col>
-      </nz-tab>
-    
-      <nz-tab nzTitle="Facebook">
-        <nz-col nzSpan = "18" nzOffset="1">
-          <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="handleLogin()">
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="facebook">
-                  <input type="text" nz-input formControlName="userName" placeholder="Username" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your Password!">
-                <nz-input-group nzPrefixIcon="lock">
-                  <input type="password" nz-input formControlName="password" placeholder="Password" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
-          </form>
-        </nz-col>
-      </nz-tab>
+    <div *ngIf="isLoginFailed">Login failed: {{ errorMessage }}</div>
+  
+    <div *ngIf="isLoggedIn">Welcome {{currentUser.displayName}} <br>Logged in as {{ currentUser.roles }}.</div>
+  
+    <ul *ngIf="isLoggedIn">
+      <li class="nav-item"><a href class="nav-link" (click)="logout()">LogOut</a></li>
+    </ul>
 
-      <nz-tab nzTitle="Google">
-        <nz-col nzSpan = "18" nzOffset="1">
-          <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="handleLogin()">
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your username!">
-                <nz-input-group nzPrefixIcon="google">
-                  <input type="text" nz-input formControlName="userName" placeholder="Username" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your Password!">
-                <nz-input-group nzPrefixIcon="lock">
-                  <input type="password" nz-input formControlName="password" placeholder="Password" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
-          </form>
-        </nz-col>
-      </nz-tab>
-
-    </nz-tabset>
   </nz-col>
-</nz-row>-->
+</nz-row>
 
-<div class="col-md-12">
+<!-- <div class="col-md-12">
   <div class="card card-container">
     <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+
+
     <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="form-group">
         <label for="username">Email</label> <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required #username="ngModel" />
@@ -105,9 +88,12 @@
       <div class="form-group">
         <button class="btn btn-primary btn-block">Login</button>
       </div>
+
       <div class="form-group">
         <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">Login failed: {{ errorMessage }}</div>
       </div>
+
+
       <div class="form-group">
         <p class="content-divider center mt-3">
           <span>or</span>
@@ -128,13 +114,18 @@
           </a>
         </p>
       </div>
+
+
     </form>
+
     <div class="alert alert-success" *ngIf="isLoggedIn">Welcome {{currentUser.displayName}} <br>Logged in as {{ currentUser.roles }}.</div>
 
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
 			<li class="nav-item"><a href class="nav-link" (click)="logout()">LogOut</a></li>
 		</ul>
+
+
   </div>
-</div>
+</div> -->
    
   

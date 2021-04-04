@@ -15,7 +15,8 @@ class UserController {
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     fun getCurrentUser(@CurrentUser user: LocalUser?): ResponseEntity<*> {
-        return ResponseEntity.ok(GeneralUtils.buildUserInfo(user!!))
+        var userInfo = GeneralUtils.buildUserInfo(user!!)
+        return ResponseEntity.ok(userInfo)
     }
 
     @get:GetMapping("/all")

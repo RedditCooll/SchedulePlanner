@@ -13,25 +13,31 @@
               <i nz-icon nzType="smile"></i>
               <a routerLink="/welcome">Welcome</a>
             </li>
-            <li nz-menu-item>
+            <li nz-menu-item *ngIf = "isLoggedIn">
               <i nz-icon nzType="unordered-list"></i>
               <a routerLink="/schedule/plan">Schedule Plan</a>
             </li>
-            <li nz-menu-item>
+            <li nz-menu-item *ngIf = "isLoggedIn">
               <i nz-icon nzType="ordered-list" nzTheme="outline"></i>
               <a routerLink="/schedule/list">Schedule List</a>
+            </li>
+            <li nz-menu-item *ngIf = "!isLoggedIn">
+              <i nz-icon nzType="login" nzTheme="outline"></i>
+              <a routerLink="/login">Login</a>
+            </li>
+            <li nz-menu-item *ngIf = "!isLoggedIn">
+              <i nz-icon nzType="user-add" nzTheme="outline"></i>
+              <a routerLink="/register">Register</a>
             </li>
 
             <li nz-submenu nzTitle="Setting" nzIcon="setting">
               <ul>
-
                 <li nz-menu-group nzTitle="Account">
                   <ul>
                     <li nz-menu-item><i nz-icon nzType="login" nzTheme="outline"></i><a routerLink="/login">Login</a></li>
                     <li nz-menu-item><i nz-icon nzType="user-add" nzTheme="outline"></i><a routerLink="/register">Register</a></li>
                   </ul>
                 </li>
-
                 <li nz-menu-group nzTitle="Testing">
                   <ul>
                     <li nz-menu-item>
@@ -48,7 +54,6 @@
                     </li>
                   </ul>
                 </li>
-
                 <li nz-menu-group nzTitle="Template">
                   <ul>
                     <li nz-menu-item>
@@ -61,25 +66,21 @@
                     </li>
                   </ul>
                 </li>
-
                 <li nz-menu-group nzTitle="Setting">
                   <ul>
-                    <li nz-menu-item>Option 3</li>
-                    <li nz-menu-item>Option 4</li>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="github"></i>
+                      <a href="https://github.com/" target="_blank" rel="noopener noreferrer">Github</a>
+                    </li>
                     <li nz-submenu nzTitle="Sub Menu">
                       <ul>
-                        <li nz-menu-item nzDisabled>Option 5</li>
-                        <li nz-menu-item>Option 6</li>
+                        <li nz-menu-item nzDisabled>Option 4</li>
+                        <li nz-menu-item>Option 5</li>
                       </ul>
                     </li>
                   </ul>
                 </li>
-
               </ul>
-            </li>
-            <li nz-menu-item>
-              <i nz-icon nzType="github"></i>
-              <a href="https://github.com/" target="_blank" rel="noopener noreferrer">Github</a>
             </li>
           </ul>
       </div>

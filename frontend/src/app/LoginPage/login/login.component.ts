@@ -1,68 +1,12 @@
-// import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Router, ActivatedRoute } from '@angular/router';
-// import { AuthenticationService } from './auth.service';
-
-// @Component({
-//   selector: 'app-login',
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.less']
-// })
-// export class LoginComponent implements OnInit {
-
-//   errorMessage = 'Invalid Credentials';
-//   successMessage: string;
-//   invalidLogin = false;
-//   loginSuccess = false;
-
-//   validateForm!: FormGroup;
-
-//   submitForm(): void {
-//     // tslint:disable-next-line: forin
-//     for (const i in this.validateForm.controls) {
-//       this.validateForm.controls[i].markAsDirty();
-//       this.validateForm.controls[i].updateValueAndValidity();
-//     }
-//   }
-
-//   constructor(
-//     private route: ActivatedRoute,
-//     private router: Router,
-//     private authenticationService: AuthenticationService,
-//     private fb: FormBuilder) {   }
-
-//   ngOnInit(): void {
-//     this.validateForm = this.fb.group({
-//       userName: [null, [Validators.required]],
-//       password: [null, [Validators.required]],
-//       remember: [true]
-//     });
-//   }
-
-//   handleLogin(): void {
-//     console.log('login request');
-//     this.authenticationService.authenticationService(this.validateForm.get('userName').value,
-//                                 this.validateForm.get('password').value).subscribe( result => {
-//       console.log('login response', result);
-//       this.invalidLogin = false;
-//       this.loginSuccess = true;
-//       this.successMessage = 'Login Successful.';
-//       console.log('Login Successful.');
-//       this.router.navigate(['../chat']);
-//     }, () => {
-//       this.invalidLogin = true;
-//       this.loginSuccess = false;
-//     });
-//   }
-// }
-
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppConstants } from '../common/app.constants';
-
+import { FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -71,7 +15,12 @@ import { AppConstants } from '../common/app.constants';
 })
 export class LoginComponent implements OnInit {
 
-  form: any = {};
+  // TODO: after login, add profile pic & logout btn on the menu bar, hide login btn, redirect to home page
+  // TODO: add profile page for editing
+  // TODO: after logout, redirect to logout page
+  // TODO: add validators
+  // TODO: add error msg
+
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
@@ -81,11 +30,19 @@ export class LoginComponent implements OnInit {
   githubURL = AppConstants.GITHUB_AUTH_URL;
   linkedinURL = AppConstants.LINKEDIN_AUTH_URL;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {}
+  constructor(private fb: FormBuilder,private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {}
+
+  validateForm!: FormGroup;
 
   ngOnInit(): void {
-	const token: string = this.route.snapshot.queryParamMap.get('token');
-	const error: string = this.route.snapshot.queryParamMap.get('error');
+    this.validateForm = this.fb.group({
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+      remember: [true]
+    });
+    
+	  const token: string = this.route.snapshot.queryParamMap.get('token');
+	  const error: string = this.route.snapshot.queryParamMap.get('error');
   	if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.currentUser = this.tokenStorage.getUser();
@@ -109,7 +66,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.login(this.form).subscribe(
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+
+    this.authService.login(this.validateForm).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.login(data.user);
@@ -122,10 +84,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(user): void {
-	this.tokenStorage.saveUser(user);
-	this.isLoginFailed = false;
-	this.isLoggedIn = true;
-	this.currentUser = this.tokenStorage.getUser();
+    this.tokenStorage.saveUser(user);
+    this.isLoginFailed = false;
+    this.isLoggedIn = true;
+    this.currentUser = this.tokenStorage.getUser();
     window.location.reload();
   }
 
@@ -133,6 +95,4 @@ export class LoginComponent implements OnInit {
     this.tokenStorage.signOut();
     window.location.reload();
   }
-
 }
-
