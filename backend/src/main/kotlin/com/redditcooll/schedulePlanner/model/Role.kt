@@ -1,16 +1,11 @@
 package com.redditcooll.schedulePlanner.model
 
-import lombok.Getter
-import lombok.NoArgsConstructor
-import lombok.Setter
 import java.io.Serializable
 import javax.persistence.*
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-class Role(var name: String?) : Serializable {
+@Table(name = "ROLE")
+class Role(@Column(name = "NAME") var name: String?) : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROLE_ID")

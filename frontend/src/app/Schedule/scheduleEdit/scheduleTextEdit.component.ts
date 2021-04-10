@@ -17,14 +17,11 @@ export class ScheduleTextEditComponent implements OnInit {
 
   constructor(
     private scheduleService: ScheduleService,
-    private route: ActivatedRoute
-    ) 
-    { }
+    private route: ActivatedRoute) {};
 
   ngOnInit(): void {
-    
     this.scheduleId = this.route.snapshot.paramMap.get('id');
-    this.getSchedule()
+    this.getSchedule();
   }
 
   public onReady( editor ) {
@@ -38,7 +35,7 @@ export class ScheduleTextEditComponent implements OnInit {
     this.scheduleService.getScheduleById(this.scheduleId).subscribe( result => {
       if(result != null){
         this.schedule = result;
-        console.log(this.schedule)
+        console.log(this.schedule);
         console.log('getSchedule sucessfully!');
       }
       else{

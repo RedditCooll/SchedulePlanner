@@ -1,10 +1,8 @@
 package com.redditcooll.schedulePlanner.dto
 
 import com.redditcooll.schedulePlanner.validator.PasswordMatches
-import lombok.Data
 import javax.validation.constraints.NotEmpty
 
-@Data
 @PasswordMatches
 class SignUpRequest(val providerUserId: String?, val displayName: String?, val email: String?, val password: String?, val socialProvider: SocialProvider?) {
     val userID: Long? = null

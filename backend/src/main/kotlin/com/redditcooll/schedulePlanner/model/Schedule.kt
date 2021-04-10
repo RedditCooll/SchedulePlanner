@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "SCHEDULE")
-class ScheduleEntity {
+class Schedule {
 
     @Id
     @GeneratedValue(generator="system-uuid")

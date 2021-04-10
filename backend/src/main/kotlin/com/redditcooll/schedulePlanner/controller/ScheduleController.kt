@@ -1,5 +1,7 @@
 package com.redditcooll.schedulePlanner.controller
 
+import com.redditcooll.schedulePlanner.config.CurrentUser
+import com.redditcooll.schedulePlanner.dto.LocalUser
 import com.redditcooll.schedulePlanner.service.ScheduleService
 import com.redditcooll.schedulePlanner.service.ExcelService
 import com.redditcooll.schedulePlanner.dto.ScheduleTo
@@ -8,6 +10,8 @@ import org.springframework.core.io.InputStreamResource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
@@ -26,8 +30,8 @@ class ScheduleController {
     private lateinit var excelService: ExcelService
 
     @RequestMapping(value= ["/create/schedules"], method = [RequestMethod.POST], produces = ["application/json"])
-    fun createBusinessContent(@RequestBody scheduleToList: MutableList<ScheduleTo>, request: HttpServletRequest): Boolean {
-        return scheduleService.createSchedules(scheduleToList)
+    fun createBusinessContent(@RequestBody scheduleToList: MutableList<ScheduleTo>, @CurrentUser user: LocalUser?): Boolean {
+        return scheduleService.createSchedules(scheduleToList, user)
     }
 
     @RequestMapping(value= ["/get/schedules"], method = [RequestMethod.GET], produces = ["application/json"])
@@ -41,8 +45,8 @@ class ScheduleController {
     }
 
     @RequestMapping(value = ["/schedules/upload"], method = [RequestMethod.POST])
-    fun importExcel(@RequestParam file: MultipartFile): MutableIterable<ScheduleTo?> {
-        return excelService.importExcel(file)
+    fun importExcel(@RequestParam file: MultipartFile, @CurrentUser user: LocalUser?): MutableIterable<ScheduleTo?> {
+        return excelService.importExcel(file, user)
     }
 
     @RequestMapping(value = ["/schedules/download"], method = [RequestMethod.POST])

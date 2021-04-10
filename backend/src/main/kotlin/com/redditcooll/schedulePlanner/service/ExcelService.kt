@@ -1,8 +1,9 @@
 package com.redditcooll.schedulePlanner.service
 
+import com.redditcooll.schedulePlanner.dto.LocalUser
 import com.redditcooll.schedulePlanner.dto.Rate
 import com.redditcooll.schedulePlanner.dto.ScheduleTo
-import com.redditcooll.schedulePlanner.dto.User
+import com.redditcooll.schedulePlanner.model.User
 import com.redditcooll.schedulePlanner.util.PoiUtilService
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -53,7 +54,7 @@ class ExcelService {
         excelFile.close()
     }
 
-    fun importExcel(file: MultipartFile): MutableIterable<ScheduleTo?>{
+    fun importExcel(file: MultipartFile, currentUser: LocalUser?): MutableIterable<ScheduleTo?>{
         logger.info("Start importExcel")
         // TODO: add check mechanism
         var excelDataList = poiUtilService.readExcel(file)
@@ -62,18 +63,18 @@ class ExcelService {
             if (excelDataList != null) {
                 for (row in excelDataList){
                     var scheduleTo = ScheduleTo()
-                    scheduleTo.id = row[0]
-                    var dataArr = row[1]!!.split("-")
+                    var dataArr = row[0]!!.split("-")
                     scheduleTo.date = LocalDate.of(dataArr[0].toInt(), dataArr[1].toInt(), dataArr[2].toInt())
-                    scheduleTo.content = row[3]
-                    scheduleTo.priority = row[4]!!.toInt()
-                    scheduleTo.status = row[7]
-                    scheduleTo.address = row[6]
-                    scheduleTo.classification = row[5]
+                    scheduleTo.content = row[1]
+                    scheduleTo.priority = row[2]!!.toInt()
+                    scheduleTo.classification = row[3]
+                    scheduleTo.address = row[4]
+                    scheduleTo.status = row[5]
 
-                    var userTo = User()
-                    userTo.id = row[2]
-                    scheduleTo.user = userTo
+                    var user = User()
+                    user.id = currentUser!!.user.id
+                    user.displayName = currentUser!!.user.displayName
+                    scheduleTo.user = user
 
                     var rateTo = Rate()
                     scheduleTo.rate = rateTo
@@ -95,7 +96,7 @@ class ExcelService {
     @Throws(IOException::class)
     fun exportExcel(scheduleToList: MutableList<ScheduleTo>): ByteArrayInputStream? {
         logger.info("Start exportExcel")
-        val columns = arrayOf("ID", "Date", "User", "Content", "Priority", "Classification", "Address", "Status")
+        val columns = arrayOf("Date", "Content", "Priority", "Classification", "Address", "Status")
         XSSFWorkbook().use { workbook ->
             ByteArrayOutputStream().use { out ->
                 val createHelper: CreationHelper = workbook.creationHelper
@@ -119,14 +120,12 @@ class ExcelService {
                 var rowIdx = 1
                 for (customer in scheduleToList) {
                     val row: Row = sheet.createRow(rowIdx++)
-                    row.createCell(0).setCellValue(customer.id)
-                    row.createCell(1).setCellValue(customer.date!!.toString())
-                    row.createCell(2).setCellValue(customer.user!!.id)
-                    row.createCell(3).setCellValue(customer.content)
-                    row.createCell(4).setCellValue(customer.priority.toString())
-                    row.createCell(5).setCellValue(customer.classification)
-                    row.createCell(6).setCellValue(customer.address)
-                    row.createCell(7).setCellValue(customer.status)
+                    row.createCell(0).setCellValue(customer.date!!.toString())
+                    row.createCell(1).setCellValue(customer.content)
+                    row.createCell(2).setCellValue(customer.priority.toString())
+                    row.createCell(3).setCellValue(customer.classification)
+                    row.createCell(4).setCellValue(customer.address)
+                    row.createCell(5).setCellValue(customer.status)
                 }
                 workbook.write(out)
                 return ByteArrayInputStream(out.toByteArray())

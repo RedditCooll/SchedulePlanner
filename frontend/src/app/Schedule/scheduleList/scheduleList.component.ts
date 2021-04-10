@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScheduleTo } from '../schedule.model';
 import { ScheduleService } from '../schedule.service';
+import { AppConstants } from '../../LoginPage/common/app.constants';
 
 @Component({
   selector: 'app-scheduleList',
@@ -8,9 +9,7 @@ import { ScheduleService } from '../schedule.service';
 })
 export class ScheduleListComponent implements OnInit{
 
-    constructor(private scheduleService: ScheduleService){
-
-    }
+    constructor(private scheduleService: ScheduleService){};
 
     data: ScheduleTo[] = [];
     
@@ -22,6 +21,6 @@ export class ScheduleListComponent implements OnInit{
     }
 
     passTheEditPageUrl(scheduleTo: ScheduleTo):string{
-      return 'http://localhost:4200/schedule/edit/' + scheduleTo.id;
+      return AppConstants.SCHEDULE_EDIT_PAGE_URL + scheduleTo.id;
     }
 }

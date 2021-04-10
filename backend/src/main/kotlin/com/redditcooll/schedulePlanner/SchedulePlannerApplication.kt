@@ -23,9 +23,14 @@ class SchedulePlannerApplication: SpringBootServletInitializer() {
 	}
 }
 
-// FIXME: showing login as .
-// TODO: arrange config
-// TODO: add table columns for content, pic
-// col rename 'content' to 'subject'
-// add content col
+/** back-end **/
+// TODO: Add data into H2
+// TODO: col rename 'content' to 'subject', add content in ScheduleTo
+// TODO: add table columns for profile picture
+// TODO: revise config files
+// TODO: Unify date format in both front-end & back-end
 
+/** front-end **/
+// TODO: add logout button
+// TODO: add validator for register
+// FIXME: when redirect to scheduleTextEditorPage, 'Cannot read property 'id' of undefined'

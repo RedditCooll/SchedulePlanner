@@ -8,4 +8,6 @@ export class AppConstants {
     public static FACEBOOK_AUTH_URL = AppConstants.OAUTH2_URL + "facebook" + AppConstants.REDIRECT_URL;
     public static GITHUB_AUTH_URL = AppConstants.OAUTH2_URL + "github" + AppConstants.REDIRECT_URL;
     public static LINKEDIN_AUTH_URL = AppConstants.OAUTH2_URL + "linkedin" + AppConstants.REDIRECT_URL;
+    
+    public static SCHEDULE_EDIT_PAGE_URL = "http://localhost:8081/schedule/edit/";
 }

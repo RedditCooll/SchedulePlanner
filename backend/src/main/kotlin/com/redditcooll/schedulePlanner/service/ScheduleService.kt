@@ -1,10 +1,11 @@
 package com.redditcooll.schedulePlanner.service
 
-import com.redditcooll.schedulePlanner.model.ScheduleEntity
+import com.redditcooll.schedulePlanner.dto.LocalUser
+import com.redditcooll.schedulePlanner.model.Schedule
 import com.redditcooll.schedulePlanner.repo.ScheduleRepository
 import com.redditcooll.schedulePlanner.dto.Rate
 import com.redditcooll.schedulePlanner.dto.ScheduleTo
-import com.redditcooll.schedulePlanner.dto.User
+import com.redditcooll.schedulePlanner.model.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.IOException
@@ -17,15 +18,14 @@ class ScheduleService {
     @Autowired
     private lateinit var scheduleRepository: ScheduleRepository
 
-    fun createSchedules(scheduleList : MutableList<ScheduleTo>): Boolean{
+    fun createSchedules(scheduleList : MutableList<ScheduleTo>, currentUser: LocalUser?): Boolean{
         logger.info("createSchedules count: ${scheduleList.size}")
         return try {
-            var scheduleEntityList = mutableListOf<ScheduleEntity>()
+            var scheduleEntityList = mutableListOf<Schedule>()
             scheduleList.forEach{
-                var scheduleEntity = ScheduleEntity()
-                scheduleEntity.scheduleId = it.id
+                var scheduleEntity = Schedule()
                 scheduleEntity.date = it.date
-                scheduleEntity.userId = it.user!!.id
+                scheduleEntity.userId = currentUser!!.user.id.toString()
                 scheduleEntity.priority = it.priority
                 scheduleEntity.status = it.status
                 scheduleEntity.classification = it.classification
@@ -35,7 +35,6 @@ class ScheduleService {
                 scheduleEntity.good = 0
                 scheduleEntity.like = 0
                 scheduleEntityList.add(scheduleEntity)
-                //scheduleRepository.save(scheduleEntity)
             }
             scheduleRepository.saveAll(scheduleEntityList)
             true
@@ -59,9 +58,9 @@ class ScheduleService {
             scheduleTo.status = it.status
             scheduleTo.date = it.date
 
-            var userTo = User()
-            userTo.id = it.userId
-            scheduleTo.user = userTo
+            var user = User()
+            user.id = it.userId!!.toLong()
+            scheduleTo.user = user
 
             var rateTo = Rate()
             rateTo.good = it.good
@@ -86,9 +85,9 @@ class ScheduleService {
             scheduleTo.status = result.status
             scheduleTo.date = result.date
 
-            var userTo = User()
-            userTo.id = result.userId
-            scheduleTo.user = userTo
+            var user = User()
+            user.id = result.userId!!.toLong()
+            scheduleTo.user = user
 
             var rateTo = Rate()
             rateTo.good = result.good

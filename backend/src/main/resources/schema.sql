@@ -12,9 +12,3 @@ CREATE TABLE SCHEDULE (
     _LIKE int,
     PRIMARY KEY (SCHEDULE_ID)
 );
-
-CREATE TABLE _USER (
-    USER_ID varchar(16),
-    NAME varchar(255),
-    PRIMARY KEY (USER_ID)
-);

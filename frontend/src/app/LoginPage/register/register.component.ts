@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 
 export class RegisterComponent implements OnInit {
 
-  // TODO: add validators
+  // TODO: add validators align with back-end
 
   validateForm!: FormGroup;
   isSuccessful = false;

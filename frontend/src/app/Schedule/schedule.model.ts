@@ -23,7 +23,7 @@ export class ScheduleTo {
 
 export class User {
     id: number;
-    name: string;
+    displayName: string;
 }
 
 export class Rate {

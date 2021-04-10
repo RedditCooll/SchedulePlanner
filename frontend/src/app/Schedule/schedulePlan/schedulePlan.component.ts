@@ -30,9 +30,7 @@ export class SchedulePlanComponent implements OnInit{
     // example data
     this.dataObject = [
         {
-          id: 'id1',
           date: '01/30/2021',
-          user: 'user1',
           content: 'studying',
           priority: '1',
           classification:'Work',
@@ -40,9 +38,7 @@ export class SchedulePlanComponent implements OnInit{
           status: 'Done'
         },
         {
-          id: 'id2',
           date: '01/31/2021',
-          user: 'user2',
           content: 'going to exerice',
           priority: '2',
           classification:'Work',
@@ -54,18 +50,10 @@ export class SchedulePlanComponent implements OnInit{
         data: this.dataObject,
         columns: [
           {
-            data: 'id',
-            type: 'text',
-            width: 40
-          },
-          {
             data: 'date',
             type: 'date',
-            dateFormat: 'MM/DD/YYYY'
-          },
-          {
-            data: 'user',
-            type: 'text'
+            dateFormat: 'MM/DD/YYYY',
+            width: 70
           },
           {
             data: 'content',
@@ -98,9 +86,7 @@ export class SchedulePlanComponent implements OnInit{
         manualColumnResize: true,
         rowHeaders: true,
         colHeaders: [
-          'ID',
           'Date',
-          'User',
           'Content',
           'Priority',
           'Classification',
@@ -142,12 +128,12 @@ export class SchedulePlanComponent implements OnInit{
       let file = info ? info.file : null;
       console.log('importExcel response:', file.response)
       // put response into table, update
-      // formate date, user
+      // formate date
       var newData = []
       file.response.forEach(element => {
         var tmp = element
-        tmp.date = element.date[0] + "/" + element.date[1] + "/" + element.date[2]
-        tmp.user = element.user.id
+        var date_parts = element.date.split("-");
+        tmp.date = date_parts[1] + "/" + date_parts[2] + "/" + date_parts[0]
         newData.push(tmp)
       });
       this.settings.data = newData;
@@ -179,19 +165,13 @@ export class SchedulePlanComponent implements OnInit{
         good: 0,
         like: 0
       }
-      var user: User = {
-        id: row[2],
-        name: ''
-      }
       var scheduleTo = {
-        id : row[0],
-        date : new Date(row[1]),
-        user : user,
-        content : row[3],
-        priority : row[4],
-        classification : row[5],
-        address: row[6],
-        status : row[7],
+        date : new Date(row[0]),
+        content : row[1],
+        priority : row[2],
+        classification : row[3],
+        address: row[4],
+        status : row[5],
         rate : rate,
       }
       scheduleToArray.push(scheduleTo);
