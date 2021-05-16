@@ -22,7 +22,7 @@ export class ScheduleTo {
 }
 
 export class User {
-    id: number;
+    id: string; // TODO: check is there any impact(number->string)
     displayName: string;
 }
 

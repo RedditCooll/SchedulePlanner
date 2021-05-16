@@ -108,4 +108,8 @@ class UserServiceImpl : UserService {
     override fun findUserById(id: Long?): Optional<User?>? {
         return userRepository!!.findById(id!!)
     }
+
+    override fun findAllUsers(): MutableList<User?>{
+        return userRepository!!.findAll()
+    }
 }

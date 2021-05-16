@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.ReloadableResourceBundleMessageSource
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.validation.Validator
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 import org.springframework.web.servlet.LocaleResolver
@@ -16,7 +17,7 @@ import java.util.*
 class WebConfig : WebMvcConfigurer {
     private val MAX_AGE_SECS: Long = 3600
     override fun addCorsMappings(registry: CorsRegistry) {
-        registry.addMapping("/**").allowedOrigins("*").allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE").maxAge(MAX_AGE_SECS)
+        registry.addMapping("/**").allowedOrigins("http://localhost:8081").allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE").maxAge(MAX_AGE_SECS)
     }
 
     @Bean

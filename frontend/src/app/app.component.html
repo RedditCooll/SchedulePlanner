@@ -21,6 +21,10 @@
               <i nz-icon nzType="ordered-list" nzTheme="outline"></i>
               <a routerLink="/schedule/list">Schedule List</a>
             </li>
+            <li nz-menu-item *ngIf = "isLoggedIn">
+              <i nz-icon nzType="message" nzTheme="outline"></i>
+              <a routerLink="/chat">Chatroom</a>
+            </li>
             <li nz-menu-item *ngIf = "!isLoggedIn">
               <i nz-icon nzType="login" nzTheme="outline"></i>
               <a routerLink="/login">Login</a>

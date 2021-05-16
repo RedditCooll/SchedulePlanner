@@ -15,4 +15,5 @@ interface UserService {
     fun findUserByEmail(email: String?): User?
     fun findUserById(id: Long?): Optional<User?>?
     fun processUserRegistration(registrationId: String?, attributes: MutableMap<String?, Any?>?, idToken: OidcIdToken?, userInfo: OidcUserInfo?): LocalUser?
+    fun findAllUsers(): MutableList<User?>
 }

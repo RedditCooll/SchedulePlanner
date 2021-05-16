@@ -24,8 +24,10 @@ import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorH
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
 import java.util.*
-import kotlin.jvm.Throws
 
 @Configuration
 @EnableWebSecurity
@@ -66,7 +68,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .authenticationEntryPoint(RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/error", "/api/all", "/api/auth/**", "/oauth2/**").permitAll()
+                .antMatchers("/", "/error", "/api/all", "/api/auth/**", "/oauth2/**", "/ws/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -89,6 +91,19 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
     }
+
+//    @Bean
+//    fun corsConfigurationSource(): CorsConfigurationSource? {
+//        val configuration = CorsConfiguration()
+//        // This Origin header you can see that in Network tab
+//        configuration.allowedOrigins = listOf("http://localhost:8081")
+//        configuration.allowedMethods = listOf("GET", "POST")
+//        configuration.allowedHeaders = listOf("content-type")
+//        configuration.allowCredentials = true
+//        val source = UrlBasedCorsConfigurationSource()
+//        source.registerCorsConfiguration("/**", configuration)
+//        return source
+//    }
 
     @Bean
     fun tokenAuthenticationFilter(): TokenAuthenticationFilter {

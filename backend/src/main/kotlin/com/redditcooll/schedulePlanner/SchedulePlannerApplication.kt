@@ -30,6 +30,8 @@ class SchedulePlannerApplication: SpringBootServletInitializer() {
 // TODO: revise config files
 // TODO: Unify date format in both front-end & back-end
 
+// FIXME: BASIC AUTH for normal login
+
 /** front-end **/
 // TODO: add logout button
 // TODO: add validator for register

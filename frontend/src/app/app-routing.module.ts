@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'stuff', loadChildren: () => import('./HomePage/stuff/stuff.module').then(m => m.StuffModule) },
   { path: 'leisure', loadChildren: () => import('./HomePage/leisure/leisure.module').then(m => m.LeisureModule) },
   { path: 'schedule', loadChildren: () => import('./Schedule/schedule.module').then(m => m.ScheduleModule) },
+  { path: 'chat', loadChildren: () => import('./Chat/Chat.module').then(m => m.ChatModule) },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'logout', component: LogoutComponent},
