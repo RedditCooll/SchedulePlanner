@@ -33,16 +33,14 @@
               <i nz-icon nzType="user-add" nzTheme="outline"></i>
               <a routerLink="/register">Register</a>
             </li>
+            <li nz-menu-item *ngIf = "isLoggedIn">
+              <img width="30px" alt="logo" src="./../../assets/user-profile.png" style="padding-right: 5px;"/>
+              <a routerLink="/login">{{ currentUser.displayName }}</a>
+            </li>
 
             <li nz-submenu nzTitle="Setting" nzIcon="setting">
               <ul>
-                <li nz-menu-group nzTitle="Account">
-                  <ul>
-                    <li nz-menu-item><i nz-icon nzType="login" nzTheme="outline"></i><a routerLink="/login">Login</a></li>
-                    <li nz-menu-item><i nz-icon nzType="user-add" nzTheme="outline"></i><a routerLink="/register">Register</a></li>
-                  </ul>
-                </li>
-                <li nz-menu-group nzTitle="Testing">
+                <li nz-menu-group nzTitle="Testing Kits">
                   <ul>
                     <li nz-menu-item>
                       <i nz-icon nzType="file-excel"></i>

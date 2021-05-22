@@ -20,11 +20,32 @@ export class ScheduleTextEditComponent implements OnInit {
     private route: ActivatedRoute) {};
 
   ngOnInit(): void {
+    var user = {
+      id: '',
+      displayName: ''
+    };
+    var rate = {
+      veryGood: 0,
+      good: 0,
+      like: 0
+    };
+    this.schedule = {
+      id: '',
+      date: new Date(),
+      user: user,
+      priority: 0,
+      status: '',
+      classification: '',
+      content: '',
+      address: '',
+      rate: rate
+    };
+
     this.scheduleId = this.route.snapshot.paramMap.get('id');
     this.getSchedule();
   }
 
-  public onReady( editor ) {
+  onReady( editor ) {
     editor.ui.getEditableElement().parentElement.insertBefore(
         editor.ui.view.toolbar.element,
         editor.ui.getEditableElement()

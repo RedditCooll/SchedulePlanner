@@ -78,9 +78,11 @@ export class ChatComponent implements OnInit {
       for(var i=0; i<this.channelList.length; i++){
         if(this.channelList[i].user.id == sender.id){
           this.channelList[i].messages.push(message);
+          this.channelList[i].lastMessage = message.text;
         }
       }
     });
+    this.scrollDown();
   };
 
   sendMessage() {
@@ -100,6 +102,7 @@ export class ChatComponent implements OnInit {
       this.stompClient.send("/app/chat", {}, JSON.stringify(message));
 
       // Refresh page
+      var count = 0;
       var msg: Message = {
         text: this.newMessage,
         sender: this.currentUser,
@@ -108,12 +111,15 @@ export class ChatComponent implements OnInit {
       for(var i=0; i<this.channelList.length; i++){
         if(this.channelList[i].user.id == msg.reciptient.id){
           this.channelList[i].messages.push(msg);
+          this.channelList[i].lastMessage = msg.text;
+          count =  this.channelList[i].messages.length;
         }
       }
 
       // Clear text input
       this.newMessage = "";
     }
+    this.scrollDown();
   }
 
   getMessages(id: string){
@@ -121,11 +127,9 @@ export class ChatComponent implements OnInit {
       if(this.channelList[i].user.id == id){
         this.currentReciptient = this.channelList[i].user
         this.messages = this.channelList[i].messages;
-        console.log('test id', id);
-        console.log('test currentReciptient!', this.currentReciptient);
-        console.log('test messages!', this.channelList[i].messages);
       }  
     }
+    this.scrollDown();
   }
 
   loadContacts = () => {
@@ -140,7 +144,6 @@ export class ChatComponent implements OnInit {
           if(this.currentUser.id != channelUser.id){
             // TODO: remove count?
             console.log('count',count);
-            console.log('channelUser',channelUser);
 
             // get all messages between two people
             this.findMessages(channelUser);
@@ -222,5 +225,11 @@ export class ChatComponent implements OnInit {
       })
     })
     return messagesFound;
+  }
+
+  scrollDown(){
+    // scroll down
+    var scroll_msg_history = document.getElementById('msg_history');
+    scroll_msg_history.scrollTop = scroll_msg_history.scrollHeight;
   }
 }
